@@ -62,6 +62,8 @@ def stability_images(keyword, num_images):
     keyword_directory = os.path.join(stability_directory, format_keyword(keyword))
     os.makedirs(keyword_directory, exist_ok=True)
     
+    generated_image_paths = []  # List to store paths of generated images
+    
     for i in range(1, num_images + 1):
         # Generate stability data
         stability_data = stability(keyword)
@@ -71,6 +73,9 @@ def stability_images(keyword, num_images):
         image_path = os.path.join(keyword_directory, f"{i:04d}.jpg")
         with open(image_path, 'wb') as f:
             f.write(base64.b64decode(image_data))
+        generated_image_paths.append(image_path)
+    
+    return generated_image_paths
             
 def stability_zip(keyword, num_images):
     formatted_keyword = format_keyword(keyword)

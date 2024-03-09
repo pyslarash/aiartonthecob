@@ -34,6 +34,8 @@ def dalle_images(keyword, num_images):
     image_directory = os.path.join(os.getcwd(), "dalle", formatted_keyword)
     os.makedirs(image_directory, exist_ok=True)
     
+    image_paths = []  # List to store paths of saved images
+    
     for i in range(1, num_images + 1):
         # Generate image URL
         image_url = dalle(keyword)
@@ -45,6 +47,11 @@ def dalle_images(keyword, num_images):
         image_path = os.path.join(image_directory, image_filename)
         with open(image_path, 'wb') as f:
             f.write(requests.get(image_url).content)
+            
+        # Append the path of the saved image to the list
+        image_paths.append(image_path)
+        
+    return image_paths  # Return the list of saved image paths
             
 # Function to zip images and return the link to the ZIP file
 def dalle_zip(keyword, num_images):

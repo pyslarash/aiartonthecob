@@ -1,0 +1,17 @@
+/* Navbar.css */
+
+/* Style for normal state */
+.nav {
+    text-decoration: none;
+    color: white;
+  }
+  
+/* Style for hover state */
+.nav:hover {
+    text-decoration: underline;
+  }
+  
+/* Style for active state */
+.nav.active {
+    font-weight: bold;
+  }

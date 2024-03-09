@@ -57,21 +57,5 @@ def etsy_tags(keyword):
 def description_creation(keyword):
     title = etsy_title(keyword)
     description = etsy_description(keyword)
-    tags=etsy_tags(keyword)
-    descriptions_dir = os.getenv('DESCRIPTION_FOLDER')
-
-    # Create the "descriptions" directory if it doesn't exist
-    create_directory(descriptions_dir)
-
-    formatted = format_keyword(keyword)
-    # Create a file with the keyword as the filename
-    filename = f"{descriptions_dir}/{formatted}.txt"
-    
-    # Save meta and product descriptions to the file
-    with open(filename, 'w') as file:
-        file.write("ETSY TITLE:\n")
-        file.write(title)
-        file.write("\n\nPRODUCT DESCRIPTION:\n")
-        file.write(description)
-        file.write("\n\nTAGS:\n")
-        file.write(tags)
+    tags = etsy_tags(keyword)
+    return title, description, tags
