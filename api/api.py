@@ -3,6 +3,8 @@ from stability import stability_images
 from dalle import dalle_images
 from description import description_creation
 from zip import create_zip
+from mockups import mockup_generator
+from upload import upload_image
 
 # Test function
 def hello():
@@ -89,3 +91,42 @@ def zip():
 
     # Return the path to the created ZIP file
     return jsonify({'zip_file_path': zip_file_path}), 200
+
+# Generating mockups
+def mockups():
+    # Check if 'image_path' is provided in the request
+    image_path = request.json.get('image_path')
+
+    if image_path is None:
+        return jsonify({'error': 'Image path is required'}), 400
+
+    try:
+        # Generate the mockup URLs based on the image path
+        mockup_urls = mockup_generator(image_path)
+
+        # Construct the JSON response
+        response_data = {
+            'mockup_urls': mockup_urls
+        }
+
+        # Return the JSON response
+        return jsonify(response_data), 200
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+    
+# Uploading an image
+def handle_image_upload():
+    # Check if the POST request has the file part
+    if 'image' not in request.files:
+        return jsonify({'error': 'No file part in the request'}), 400
+    
+    file = request.files['image']
+    
+    # Check if the file is empty
+    if file.filename == '':
+        return jsonify({'error': 'No selected file'}), 400
+    
+    # Call the upload_image function to handle the file upload
+    file_path = upload_image(file)
+    
+    return jsonify({'success': True, 'file_path': file_path}), 200

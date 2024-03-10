@@ -1,10 +1,10 @@
 from flask import Flask
 from flask_cors import CORS
-from api import stability, dalle, description, hello, zip
+from api import stability, dalle, description, hello, zip, mockups, handle_image_upload
 
 # Create a Flask application
 app = Flask(__name__)
-CORS(app)
+CORS(app, origins='http://localhost:3000')
 
 # Define routes for the API endpoints
 @app.route('/hello')
@@ -26,6 +26,14 @@ def description_endpoint():
 @app.route('/zip', methods=['POST'])
 def zip_endpoint():
     return zip()
+
+@app.route('/mockups', methods=['POST'])
+def mockups_endpoint():
+    return mockups()
+
+@app.route('/upload_image', methods=['POST'])
+def upload_image_endpoint():
+    return handle_image_upload()
 
 if __name__ == '__main__':
     app.run(debug=True)

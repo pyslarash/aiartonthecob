@@ -39,6 +39,11 @@ const Navbar = () => {
                   <p className={pathname === "/description" ? `${styles.nav} ${styles.active}` : styles.nav}>Description</p>
                 </Link>
               </li>
+              <li>
+                <Link href="/mockups">
+                  <p className={pathname === "/mockups" ? `${styles.nav} ${styles.active}` : styles.nav}>Mockups</p>
+                </Link>
+              </li>
             </ul>
           </div>
         </div>
